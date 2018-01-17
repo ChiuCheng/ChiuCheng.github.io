@@ -1,15 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[flyway with spring-boot]]></title>
+    <url>%2Fflyway-with-spring-boot.html</url>
+    <content type="text"><![CDATA[在pom.xml中添加依赖以及插件12345&lt;dependency&gt; &lt;groupId&gt;org.flywaydb&lt;/groupId&gt; &lt;artifactId&gt;flyway-core&lt;/artifactId&gt; &lt;version&gt;3.0&lt;/version&gt;&lt;/dependency&gt; 123456789101112131415161718192021222324252627282930313233&lt;profile&gt; &lt;id&gt;Dev&lt;/id&gt; &lt;dependencies&gt; &lt;!-- Fly way --&gt; &lt;dependency&gt; &lt;groupId&gt;org.flywaydb&lt;/groupId&gt; &lt;artifactId&gt;flyway-core&lt;/artifactId&gt; &lt;version&gt;3.0&lt;/version&gt; &lt;/dependency&gt; &lt;!-- mysql jdbc driver --&gt; &lt;dependency&gt; &lt;groupId&gt;mysql&lt;/groupId&gt; &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt; &lt;/dependency&gt; &lt;/dependencies&gt; &lt;build&gt; &lt;plugins&gt; &lt;plugin&gt; &lt;groupId&gt;org.flywaydb&lt;/groupId&gt; &lt;artifactId&gt;flyway-maven-plugin&lt;/artifactId&gt; &lt;version&gt;3.0&lt;/version&gt; &lt;configuration&gt; &lt;user&gt;root&lt;/user&gt; &lt;password&gt;123456&lt;/password&gt; &lt;driver&gt;com.mysql.jdbc.Driver&lt;/driver&gt; &lt;url&gt;jdbc:mysql://172.26.138.18:3307/Pomlint?useSSL=false&lt;/url&gt; &lt;/configuration&gt; &lt;/plugin&gt; &lt;/plugins&gt; &lt;/build&gt;&lt;/profile&gt; 1mvn -PDev flyway:init -Dflyway.initVersion=1 -Dflyway.initDescription=&quot;Base Version&quot; 初始化flyway用 SCHEMA_VERSION表来记录每一次的migration, 如果现在已经有一个数据库了, 则需要先清空整个数据库, 再初始化 首先, 先dump当前数据库的数据1mysqldump -h [ip_address] -u [uname] -p db_name &gt; db_backup.sql 清空当前数据库的所有数据1mvn -PDev flyway:clean 初始化, 生成 SCHEMA_VERSION表1mvn -PDev flyway:init -Dflyway.initVersion=1 -Dflyway.initDescription="Base Version" 恢复数据1mysql -P3307 -h172.26.138.18 -uroot -p Pomlint &lt; Pomlint_db_backup_19.sql 至此, 初始化数据库完成 Data migration with spring-boot当我们需要对数据表进行修改时(添加或者删除列), 可以轻松的用spring-boot来做 在项目src/main/java 下创建 db.migration包, 在该包下创建以下class文件123456789101112package db.migration;import org.flywaydb.core.api.migration.spring.SpringJdbcMigration;import org.springframework.jdbc.core.JdbcTemplate;public class V1_1__Add_version implements SpringJdbcMigration&#123; @Override public void migrate(JdbcTemplate jdbcTemplate) throws Exception &#123; jdbcTemplate.execute("ALTER TABLE BuildConfigDto add COLUMN version date"); &#125;&#125; 最后,修改相应的dto, 启动spring-boot即可]]></content>
+      <categories>
+        <category>java</category>
+        <category>spring-boot</category>
+      </categories>
+      <tags>
+        <tag>flyway</tag>
+        <tag>spring-boot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[set mysql master-slave replication with docker]]></title>
+    <url>%2Fmysql-master-slave-with-docker.html</url>
+    <content type="text"><![CDATA[master side1. 先dump原有数据库, 安全操作可以在本机上执行, 指定远程服务器的host即可 1234mysqldump -h [ip_address] -u [uname] -p db_name &gt; db_backup.sql例如:mysqldump -h172.26.131.128 -uroot -p Pomlint &gt; Pomlint_db_backup.sql 2. 在远程master主机上再起一个mysql docker container这里将配置文件直接挂载进容器中, 也可以启动容器后再进入容器修改配置 1docker run --restart=always --name pomlint-mysql-master -p 3307:3306 -e MYSQL_ROOT_PASSWORD=123456 -v /srv/mysql/master-my.cnf:/etc/mysql/my.cnf -d mysql 3. 恢复数据到新起的docker先在master机器上的docker容器中创建数据库 1create database Pomlint; 然后恢复数据到容器中(可在本地操作, 指定ip 和 port即可) 1234mysql -P [port] -h [ip_address] -u [uname] -p db_name &lt; db_backup.sql例如:mysql -P 3307 -h172.26.131.128 -uroot -p Pomlint &lt; Pomlint_db_backup.sql 4. 进入master 容器中, 修改/etc/mysql/my.cnf 文件(或者提前写好, 由外部挂载进来)my.cnf是mysql启动时加载的配置文件1234echo '[mysqld]' &gt;&gt; /etc/mysql/my.cnfecho 'server-id=1' &gt;&gt; /etc/mysql/my.cnfecho 'binlog_do_db=Pomlint' &gt;&gt; /etc/mysql/my.cnfecho 'log-bin=mysql-bin' &gt;&gt; /etc/mysql/my.cnf server-id: On the master and each slave, you must use the –server-id option to establish a unique replication ID in the range from 1 to 232 − 1. “Unique”, means that each ID must be different from every other ID in use by any other replication master or slave. For example, server-id=3. binlog_do_db: 指定要复制的数据库 log-bin Enable binary logging. 完成后退出容器, 重启容器1docker restart pomlint-mysql-master slave side1. 同样的, 先dump数据1mysqldump -h192.168.133.19 -uroot -p Pomlint &gt; Pomlint_db_backup_19.sql 2. 在远程slave主机上再起一个mysql docker container配置文件可以提前写好并挂载进去, 或者在之后启动后再进行修改1docker run --restart=always --name pomlint-mysql-slave -p 3307:3306 -e MYSQL_ROOT_PASSWORD=123456 -v /srv/mysql/slave-my.cnf:/etc/mysql/my.cnf -d mysql 3. 恢复数据到新起的docker先在slave的docker中创建数据库1create database Pomlint; 可在本地操作, 指定ip 和 port即可123mysql -P [port] -h [ip_address] -u [uname] -p db_name &lt; db_backup.sql例如:mysql -P 3307 -h192.168.133.19 -uroot -p Pomlint &lt; Pomlint_db_backup_19.sql 4. 进入slave 容器中, 修改/etc/mysql/my.cnf 文件1docker exec -it pomlint-mysql-slave bash 1234echo '[mysqld]' &gt;&gt; /etc/mysql/my.cnfecho 'server-id=2' &gt;&gt; /etc/mysql/my.cnfecho 'binlog_do_db=Pomlint' &gt;&gt; /etc/mysql/my.cnfecho 'read_only=on' &gt;&gt; /etc/mysql/my.cnf 完成后退出容器, 重启容器 1docker restart pomlint-mysql-slave 配置复制操作1. 进入master容器, 再进入mysql终端1docker exec -it pomlint-mysql-master bash 1mysql -uroot -p 执行以下SQL语句123# 创建一个用户名为repl密码为123456的用户, %表示省略用户名的主机部分CREATE USER 'repl'@'%' IDENTIFIED BY '123456'; 1234# SELECT : Enable use of SELECT. Levels: Global, database, table, column.# REPLICATION SLAVE: Enable replication slaves to read binary log events from the master. Level: Global.# 给 repl账户SELECT和读取binary log events(用于复制)的权限GRANT SELECT,REPLICATION SLAVE ON *.* TO 'repl'@'%'; 12FLUSH TABLES WITH READ LOCK;SHOW MASTER STATUS; 记住表格中的两个值 FILE 和 POSITION File Position Binlog_Do_DB Binlog_Ignore_DB Executed_Gtid_Set mysql-bin.000001 603 Pomlint - - 2. 进入slave容器, 再进入mysql终端执行以下SQL语句1CHANGE MASTER TO MASTER_HOST='172.26.131.128',MASTER_PORT=3307, MASTER_USER='repl', MASTER_PASSWORD='123456', MASTER_LOG_FILE='mysql-bin.000001', MASTER_LOG_POS=603; 注意 MASTER_LOG_FILE 和 MASTER_LOG_POS 来自之前的记录值 if you specify the MASTER_HOST or MASTER_PORT option, the slave assumes that the master server is different from before (even if the option value is the same as its current value.) In this case, the old values for the master binary log file name and position are considered no longer applicable, so if you do not specify MASTER_LOG_FILE and MASTER_LOG_POS in the statement, MASTER_LOG_FILE=’’ and MASTER_LOG_POS=4 are silently appended to it. 3. 进入master MYSQL终端 unlock table1UNLOCK TABLES; 4. 进入slave MYSQL终端, 开启slave12START SLAVE;SHOW SLAVE STATUS\G]]></content>
+      <categories>
+        <category>database</category>
+        <category>mysql</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[I love Wu Xiaying !]]></title>
     <url>%2Ftrue-love.html</url>
     <content type="text"><![CDATA[To Wu Xiaying:You are my today and all of my tomorrows.And it’s as if I never really even knew love until right now, in this moment, with you.]]></content>
       <categories>
         <category>随笔</category>
       </categories>
-      <tags>
-        <tag>博客</tag>
-        <tag>文章</tag>
-      </tags>
   </entry>
 </search>

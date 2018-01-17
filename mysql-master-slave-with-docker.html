@@ -127,7 +127,7 @@
 
 
 
-  <meta name="keywords" content="chiucheng,coding,Hexo,博客" />
+  <meta name="keywords" content="mysql," />
 
 
 
@@ -138,17 +138,18 @@
 
 
 
-<meta name="description" content="To Wu Xiaying:You are my today and all of my tomorrows.And it’s as if I never really even knew love until right now, in this moment, with you.">
+<meta name="description" content="master side1. 先dump原有数据库, 安全操作可以在本机上执行, 指定远程服务器的host即可 1234mysqldump -h [ip_address] -u [uname] -p db_name &amp;gt; db_backup.sql例如:mysqldump -h172.26.131.128 -uroot -p Pomlint &amp;gt; Pomlint_db_backup.sql">
+<meta name="keywords" content="mysql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="I love Wu Xiaying !">
-<meta property="og:url" content="https://chiucheng.github.io/true-love.html">
+<meta property="og:title" content="set mysql master-slave replication with docker">
+<meta property="og:url" content="https://chiucheng.github.io/mysql-master-slave-with-docker.html">
 <meta property="og:site_name" content="ChiuCheng&#39;s Blog">
-<meta property="og:description" content="To Wu Xiaying:You are my today and all of my tomorrows.And it’s as if I never really even knew love until right now, in this moment, with you.">
+<meta property="og:description" content="master side1. 先dump原有数据库, 安全操作可以在本机上执行, 指定远程服务器的host即可 1234mysqldump -h [ip_address] -u [uname] -p db_name &amp;gt; db_backup.sql例如:mysqldump -h172.26.131.128 -uroot -p Pomlint &amp;gt; Pomlint_db_backup.sql">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-17T09:10:57.281Z">
+<meta property="og:updated_time" content="2018-01-17T09:08:57.264Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="I love Wu Xiaying !">
-<meta name="twitter:description" content="To Wu Xiaying:You are my today and all of my tomorrows.And it’s as if I never really even knew love until right now, in this moment, with you.">
+<meta name="twitter:title" content="set mysql master-slave replication with docker">
+<meta name="twitter:description" content="master side1. 先dump原有数据库, 安全操作可以在本机上执行, 指定远程服务器的host即可 1234mysqldump -h [ip_address] -u [uname] -p db_name &amp;gt; db_backup.sql例如:mysqldump -h172.26.131.128 -uroot -p Pomlint &amp;gt; Pomlint_db_backup.sql">
 
 
 
@@ -178,13 +179,13 @@
 
 
 
-  <link rel="canonical" href="https://chiucheng.github.io/true-love.html"/>
+  <link rel="canonical" href="https://chiucheng.github.io/mysql-master-slave-with-docker.html"/>
 
 
 
 
 
-  <title>I love Wu Xiaying ! | ChiuCheng's Blog</title>
+  <title>set mysql master-slave replication with docker | ChiuCheng's Blog</title>
   
 
 
@@ -355,7 +356,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chiucheng.github.io/true-love.html">
+    <link itemprop="mainEntityOfPage" href="https://chiucheng.github.io/mysql-master-slave-with-docker.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zheng Chao">
@@ -372,7 +373,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">I love Wu Xiaying !</h1>
+          <h1 class="post-title" itemprop="name headline">set mysql master-slave replication with docker</h1>
         
 
         <div class="post-meta">
@@ -384,8 +385,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-09T17:30:16+08:00">
-                2018-01-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-15T11:25:33+08:00">
+                2018-01-15
               </time>
             
 
@@ -400,7 +401,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-01-17T17:10:57+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-01-17T17:08:57+08:00">
                 2018-01-17
               </time>
             
@@ -419,8 +420,19 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/随笔/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔</span>
+                  <a href="/categories/database/" itemprop="url" rel="index">
+                    <span itemprop="name">database</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/database/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
                   </a>
                 </span>
 
@@ -438,8 +450,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/true-love.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="true-love.html" itemprop="commentsCount"></span>
+                <a href="/mysql-master-slave-with-docker.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="mysql-master-slave-with-docker.html" itemprop="commentsCount"></span>
                 </a>
               </span>
               <!--/noindex-->
@@ -448,7 +460,7 @@
 
           
           
-             <span id="/true-love.html" class="leancloud_visitors" data-flag-title="I love Wu Xiaying !">
+             <span id="/mysql-master-slave-with-docker.html" class="leancloud_visitors" data-flag-title="set mysql master-slave replication with docker">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -479,7 +491,75 @@
       
 
       
-        <h3 id="To-Wu-Xiaying"><a href="#To-Wu-Xiaying" class="headerlink" title="To Wu Xiaying:"></a>To Wu Xiaying:</h3><p>You are my today and all of my tomorrows.<br>And it’s as if I never really even knew love until right now, in this moment, with you.</p>
+        <h2 id="master-side"><a href="#master-side" class="headerlink" title="master side"></a>master side</h2><h3 id="1-先dump原有数据库-安全操作"><a href="#1-先dump原有数据库-安全操作" class="headerlink" title="1. 先dump原有数据库, 安全操作"></a>1. 先dump原有数据库, 安全操作</h3><p>可以在本机上执行, 指定远程服务器的host即可</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">mysqldump</span> <span class="selector-tag">-h</span> <span class="selector-attr">[ip_address]</span> <span class="selector-tag">-u</span> <span class="selector-attr">[uname]</span> <span class="selector-tag">-p</span> <span class="selector-tag">db_name</span> &gt; <span class="selector-tag">db_backup</span><span class="selector-class">.sql</span></span><br><span class="line"></span><br><span class="line">例如:</span><br><span class="line"><span class="selector-tag">mysqldump</span> <span class="selector-tag">-h172</span><span class="selector-class">.26</span><span class="selector-class">.131</span><span class="selector-class">.128</span> <span class="selector-tag">-uroot</span> <span class="selector-tag">-p</span> <span class="selector-tag">Pomlint</span> &gt; <span class="selector-tag">Pomlint_db_backup</span><span class="selector-class">.sql</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-在远程master主机上再起一个mysql-docker-container"><a href="#2-在远程master主机上再起一个mysql-docker-container" class="headerlink" title="2. 在远程master主机上再起一个mysql docker container"></a>2. 在远程master主机上再起一个mysql docker container</h3><p>这里将配置文件直接挂载进容器中, 也可以启动容器后再进入容器修改配置</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="builtin-name">run</span> <span class="attribute">--restart</span>=always --name pomlint-mysql-master -p 3307:3306 -e <span class="attribute">MYSQL_ROOT_PASSWORD</span>=123456 -v /srv/mysql/master-my.cnf:/etc/mysql/my.cnf -d mysql</span><br></pre></td></tr></table></figure>
+<h3 id="3-恢复数据到新起的docker"><a href="#3-恢复数据到新起的docker" class="headerlink" title="3. 恢复数据到新起的docker"></a>3. 恢复数据到新起的docker</h3><p>先在master机器上的docker容器中创建数据库</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> Pomlint;</span><br></pre></td></tr></table></figure>
+<p>然后恢复数据到容器中(可在本地操作, 指定ip 和 port即可)</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">mysql</span> <span class="selector-tag">-P</span> <span class="selector-attr">[port]</span> <span class="selector-tag">-h</span> <span class="selector-attr">[ip_address]</span> <span class="selector-tag">-u</span> <span class="selector-attr">[uname]</span> <span class="selector-tag">-p</span> <span class="selector-tag">db_name</span> &lt; <span class="selector-tag">db_backup</span><span class="selector-class">.sql</span></span><br><span class="line"></span><br><span class="line">例如:</span><br><span class="line"><span class="selector-tag">mysql</span> <span class="selector-tag">-P</span> 3307 <span class="selector-tag">-h172</span><span class="selector-class">.26</span><span class="selector-class">.131</span><span class="selector-class">.128</span> <span class="selector-tag">-uroot</span> <span class="selector-tag">-p</span> <span class="selector-tag">Pomlint</span> &lt; <span class="selector-tag">Pomlint_db_backup</span><span class="selector-class">.sql</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-进入master-容器中-修改-etc-mysql-my-cnf-文件-或者提前写好-由外部挂载进来"><a href="#4-进入master-容器中-修改-etc-mysql-my-cnf-文件-或者提前写好-由外部挂载进来" class="headerlink" title="4. 进入master 容器中, 修改/etc/mysql/my.cnf 文件(或者提前写好, 由外部挂载进来)"></a>4. 进入master 容器中, 修改/etc/mysql/my.cnf 文件(或者提前写好, 由外部挂载进来)</h3><p>my.cnf是mysql启动时加载的配置文件<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo <span class="string">'[mysqld]'</span> <span class="meta">&gt;&gt; </span>/etc/mysql/my.cnf</span><br><span class="line">echo <span class="string">'server-id=1'</span> <span class="meta">&gt;&gt; </span>/etc/mysql/my.cnf</span><br><span class="line">echo <span class="string">'binlog_do_db=Pomlint'</span> <span class="meta">&gt;&gt; </span>/etc/mysql/my.cnf</span><br><span class="line">echo <span class="string">'log-bin=mysql-bin'</span> <span class="meta">&gt;&gt; </span>/etc/mysql/my.cnf</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>server-id: </p>
+<blockquote>
+<p>On the master and each slave, you must use the –server-id option to establish a unique replication ID in the range from 1 to 232 − 1. “Unique”, means that each ID must be different from every other ID in use by any other replication master or slave. For example, server-id=3.</p>
+</blockquote>
+</li>
+<li><p>binlog_do_db:</p>
+<ul>
+<li>指定要复制的数据库</li>
+</ul>
+</li>
+<li>log-bin<ul>
+<li>Enable binary logging. </li>
+</ul>
+</li>
+</ul>
+<p>完成后退出容器, 重启容器<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart pomlint-mysql-<span class="literal">master</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="slave-side"><a href="#slave-side" class="headerlink" title="slave side"></a>slave side</h2><h3 id="1-同样的-先dump数据"><a href="#1-同样的-先dump数据" class="headerlink" title="1. 同样的,  先dump数据"></a>1. 同样的,  先dump数据</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">mysqldump</span> <span class="selector-tag">-h192</span><span class="selector-class">.168</span><span class="selector-class">.133</span><span class="selector-class">.19</span> <span class="selector-tag">-uroot</span> <span class="selector-tag">-p</span> <span class="selector-tag">Pomlint</span> &gt; <span class="selector-tag">Pomlint_db_backup_19</span><span class="selector-class">.sql</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-在远程slave主机上再起一个mysql-docker-container"><a href="#2-在远程slave主机上再起一个mysql-docker-container" class="headerlink" title="2. 在远程slave主机上再起一个mysql docker container"></a>2. 在远程slave主机上再起一个mysql docker container</h3><p>配置文件可以提前写好并挂载进去, 或者在之后启动后再进行修改<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="builtin-name">run</span> <span class="attribute">--restart</span>=always --name pomlint-mysql-slave -p 3307:3306 -e <span class="attribute">MYSQL_ROOT_PASSWORD</span>=123456 -v /srv/mysql/slave-my.cnf:/etc/mysql/my.cnf -d mysql</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-恢复数据到新起的docker-1"><a href="#3-恢复数据到新起的docker-1" class="headerlink" title="3. 恢复数据到新起的docker"></a>3. 恢复数据到新起的docker</h3><p>先在slave的docker中创建数据库<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> Pomlint;</span><br></pre></td></tr></table></figure></p>
+<p>可在本地操作, 指定ip 和 port即可<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">mysql</span> <span class="selector-tag">-P</span> <span class="selector-attr">[port]</span> <span class="selector-tag">-h</span> <span class="selector-attr">[ip_address]</span> <span class="selector-tag">-u</span> <span class="selector-attr">[uname]</span> <span class="selector-tag">-p</span> <span class="selector-tag">db_name</span> &lt; <span class="selector-tag">db_backup</span><span class="selector-class">.sql</span></span><br><span class="line">例如:</span><br><span class="line"><span class="selector-tag">mysql</span> <span class="selector-tag">-P</span> 3307 <span class="selector-tag">-h192</span><span class="selector-class">.168</span><span class="selector-class">.133</span><span class="selector-class">.19</span> <span class="selector-tag">-uroot</span> <span class="selector-tag">-p</span> <span class="selector-tag">Pomlint</span> &lt; <span class="selector-tag">Pomlint_db_backup_19</span><span class="selector-class">.sql</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="4-进入slave-容器中-修改-etc-mysql-my-cnf-文件"><a href="#4-进入slave-容器中-修改-etc-mysql-my-cnf-文件" class="headerlink" title="4. 进入slave 容器中, 修改/etc/mysql/my.cnf 文件"></a>4. 进入slave 容器中, 修改/etc/mysql/my.cnf 文件</h3><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -<span class="keyword">it</span> pomlint-mysql-slave bash</span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo <span class="string">'[mysqld]'</span> <span class="meta">&gt;&gt; </span>/etc/mysql/my.cnf</span><br><span class="line">echo <span class="string">'server-id=2'</span> <span class="meta">&gt;&gt; </span>/etc/mysql/my.cnf</span><br><span class="line">echo <span class="string">'binlog_do_db=Pomlint'</span> <span class="meta">&gt;&gt; </span>/etc/mysql/my.cnf</span><br><span class="line">echo <span class="string">'read_only=on'</span> <span class="meta">&gt;&gt; </span>/etc/mysql/my.cnf</span><br></pre></td></tr></table></figure>
+<p>完成后退出容器, 重启容器</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart pomlint-mysql-<span class="literal">slave</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="配置复制操作"><a href="#配置复制操作" class="headerlink" title="配置复制操作"></a>配置复制操作</h2><h3 id="1-进入master容器-再进入mysql终端"><a href="#1-进入master容器-再进入mysql终端" class="headerlink" title="1. 进入master容器, 再进入mysql终端"></a>1. 进入master容器, 再进入mysql终端</h3><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it pomlint-mysql-<span class="keyword">master</span> <span class="title">bash</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">mysql -uroot -p</span></span><br></pre></td></tr></table></figure>
+<p>执行以下SQL语句<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 创建一个用户名为repl密码为123456的用户, %表示省略用户名的主机部分</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'repl'</span>@<span class="string">'%'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'123456'</span>;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># SELECT : Enable use of SELECT. Levels: Global, database, table, column.</span><br><span class="line"># REPLICATION SLAVE: Enable replication slaves to read binary log events from the master. Level: Global.</span><br><span class="line"># 给 repl账户SELECT和读取binary log events(用于复制)的权限</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">SELECT</span>,<span class="keyword">REPLICATION</span> <span class="keyword">SLAVE</span> <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'repl'</span>@<span class="string">'%'</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FLUSH</span> <span class="keyword">TABLES</span> <span class="keyword">WITH</span> <span class="keyword">READ</span> <span class="keyword">LOCK</span>;</span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">MASTER</span> <span class="keyword">STATUS</span>;</span><br></pre></td></tr></table></figure>
+<p>记住表格中的两个值 <code>FILE</code> 和 <code>POSITION</code></p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Position</th>
+<th>Binlog_Do_DB</th>
+<th>Binlog_Ignore_DB</th>
+<th>Executed_Gtid_Set</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mysql-bin.000001</td>
+<td>603</td>
+<td>Pomlint</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-进入slave容器-再进入mysql终端"><a href="#2-进入slave容器-再进入mysql终端" class="headerlink" title="2. 进入slave容器, 再进入mysql终端"></a>2. 进入slave容器, 再进入mysql终端</h3><p>执行以下SQL语句<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CHANGE</span> <span class="keyword">MASTER</span> <span class="keyword">TO</span> MASTER_HOST=<span class="string">'172.26.131.128'</span>,MASTER_PORT=<span class="number">3307</span>, MASTER_USER=<span class="string">'repl'</span>, MASTER_PASSWORD=<span class="string">'123456'</span>, MASTER_LOG_FILE=<span class="string">'mysql-bin.000001'</span>, MASTER_LOG_POS=<span class="number">603</span>;</span><br></pre></td></tr></table></figure></p>
+<p>注意 <code>MASTER_LOG_FILE</code> 和 <code>MASTER_LOG_POS</code> 来自之前的记录值</p>
+<blockquote>
+<p>if you specify the MASTER_HOST or MASTER_PORT option, the slave assumes that the master server is different from before (even if the option value is the same as its current value.) In this case, the old values for the master binary log file name and position are considered no longer applicable, so if you do not specify MASTER_LOG_FILE and MASTER_LOG_POS in the statement, MASTER_LOG_FILE=’’ and MASTER_LOG_POS=4 are silently appended to it.</p>
+</blockquote>
+<h3 id="3-进入master-MYSQL终端-unlock-table"><a href="#3-进入master-MYSQL终端-unlock-table" class="headerlink" title="3. 进入master MYSQL终端 unlock table"></a>3. 进入master MYSQL终端 unlock table</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UNLOCK</span> <span class="keyword">TABLES</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="4-进入slave-MYSQL终端-开启slave"><a href="#4-进入slave-MYSQL终端-开启slave" class="headerlink" title="4. 进入slave MYSQL终端, 开启slave"></a>4. 进入slave MYSQL终端, 开启slave</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">START</span> <span class="keyword">SLAVE</span>;</span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">SLAVE</span> <span class="keyword">STATUS</span>\G</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -494,6 +574,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
+          
+        </div>
       
 
       
@@ -516,14 +602,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/true-love.html" rel="next" title="I love Wu Xiaying !">
+                <i class="fa fa-chevron-left"></i> I love Wu Xiaying !
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/mysql-master-slave-with-docker.html" rel="prev" title="set mysql master-slave replication with docker">
-                set mysql master-slave replication with docker <i class="fa fa-chevron-right"></i>
+              <a href="/flyway-with-spring-boot.html" rel="prev" title="flyway with spring-boot">
+                flyway with spring-boot <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -667,7 +757,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#To-Wu-Xiaying"><span class="nav-number">1.</span> <span class="nav-text">To Wu Xiaying:</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#master-side"><span class="nav-number">1.</span> <span class="nav-text">master side</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-先dump原有数据库-安全操作"><span class="nav-number">1.1.</span> <span class="nav-text">1. 先dump原有数据库, 安全操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-在远程master主机上再起一个mysql-docker-container"><span class="nav-number">1.2.</span> <span class="nav-text">2. 在远程master主机上再起一个mysql docker container</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-恢复数据到新起的docker"><span class="nav-number">1.3.</span> <span class="nav-text">3. 恢复数据到新起的docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-进入master-容器中-修改-etc-mysql-my-cnf-文件-或者提前写好-由外部挂载进来"><span class="nav-number">1.4.</span> <span class="nav-text">4. 进入master 容器中, 修改/etc/mysql/my.cnf 文件(或者提前写好, 由外部挂载进来)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#slave-side"><span class="nav-number">2.</span> <span class="nav-text">slave side</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-同样的-先dump数据"><span class="nav-number">2.1.</span> <span class="nav-text">1. 同样的,  先dump数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-在远程slave主机上再起一个mysql-docker-container"><span class="nav-number">2.2.</span> <span class="nav-text">2. 在远程slave主机上再起一个mysql docker container</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-恢复数据到新起的docker-1"><span class="nav-number">2.3.</span> <span class="nav-text">3. 恢复数据到新起的docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-进入slave-容器中-修改-etc-mysql-my-cnf-文件"><span class="nav-number">2.4.</span> <span class="nav-text">4. 进入slave 容器中, 修改/etc/mysql/my.cnf 文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置复制操作"><span class="nav-number">3.</span> <span class="nav-text">配置复制操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-进入master容器-再进入mysql终端"><span class="nav-number">3.1.</span> <span class="nav-text">1. 进入master容器, 再进入mysql终端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-进入slave容器-再进入mysql终端"><span class="nav-number">3.2.</span> <span class="nav-text">2. 进入slave容器, 再进入mysql终端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-进入master-MYSQL终端-unlock-table"><span class="nav-number">3.3.</span> <span class="nav-text">3. 进入master MYSQL终端 unlock table</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-进入slave-MYSQL终端-开启slave"><span class="nav-number">3.4.</span> <span class="nav-text">4. 进入slave MYSQL终端, 开启slave</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -857,7 +947,7 @@
 		_hcwp.push({widget:"Bloggerstream", widget_id: 100074, selector:".hc-comment-count", label: "{\%COUNT%\}" });
 
 		
-		_hcwp.push({widget:"Stream", widget_id: 100074, xid: "true-love.html"});
+		_hcwp.push({widget:"Stream", widget_id: 100074, xid: "mysql-master-slave-with-docker.html"});
 		
 
 		(function() {
