@@ -138,18 +138,18 @@
 
 
 
-<meta name="description" content="master side1. 先dump原有数据库, 安全操作可以在本机上执行, 指定远程服务器的host即可 1234mysqldump -h [ip_address] -u [uname] -p db_name &amp;gt; db_backup.sql例如:mysqldump -h172.26.131.128 -uroot -p Pomlint &amp;gt; Pomlint_db_backup.sql">
+<meta name="description" content="本文主要介绍了如何设置mysql数据库的主从复制, 其中mysql服务使用docker container">
 <meta name="keywords" content="mysql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="set mysql master-slave replication with docker">
 <meta property="og:url" content="https://chiucheng.github.io/mysql-master-slave-with-docker.html">
 <meta property="og:site_name" content="ChiuCheng&#39;s Blog">
-<meta property="og:description" content="master side1. 先dump原有数据库, 安全操作可以在本机上执行, 指定远程服务器的host即可 1234mysqldump -h [ip_address] -u [uname] -p db_name &amp;gt; db_backup.sql例如:mysqldump -h172.26.131.128 -uroot -p Pomlint &amp;gt; Pomlint_db_backup.sql">
+<meta property="og:description" content="本文主要介绍了如何设置mysql数据库的主从复制, 其中mysql服务使用docker container">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-17T09:08:57.264Z">
+<meta property="og:updated_time" content="2018-01-17T10:51:54.713Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="set mysql master-slave replication with docker">
-<meta name="twitter:description" content="master side1. 先dump原有数据库, 安全操作可以在本机上执行, 指定远程服务器的host即可 1234mysqldump -h [ip_address] -u [uname] -p db_name &amp;gt; db_backup.sql例如:mysqldump -h172.26.131.128 -uroot -p Pomlint &amp;gt; Pomlint_db_backup.sql">
+<meta name="twitter:description" content="本文主要介绍了如何设置mysql数据库的主从复制, 其中mysql服务使用docker container">
 
 
 
@@ -401,7 +401,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-01-17T17:08:57+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-01-17T18:51:54+08:00">
                 2018-01-17
               </time>
             
@@ -491,7 +491,8 @@
       
 
       
-        <h2 id="master-side"><a href="#master-side" class="headerlink" title="master side"></a>master side</h2><h3 id="1-先dump原有数据库-安全操作"><a href="#1-先dump原有数据库-安全操作" class="headerlink" title="1. 先dump原有数据库, 安全操作"></a>1. 先dump原有数据库, 安全操作</h3><p>可以在本机上执行, 指定远程服务器的host即可</p>
+        <p></p><p class="description">本文主要介绍了如何设置mysql数据库的主从复制, 其中mysql服务使用docker container</p><br><a id="more"></a><p></p>
+<h2 id="master-side"><a href="#master-side" class="headerlink" title="master side"></a>master side</h2><h3 id="1-先dump原有数据库-安全操作"><a href="#1-先dump原有数据库-安全操作" class="headerlink" title="1. 先dump原有数据库, 安全操作"></a>1. 先dump原有数据库, 安全操作</h3><p>可以在本机上执行, 指定远程服务器的host即可</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">mysqldump</span> <span class="selector-tag">-h</span> <span class="selector-attr">[ip_address]</span> <span class="selector-tag">-u</span> <span class="selector-attr">[uname]</span> <span class="selector-tag">-p</span> <span class="selector-tag">db_name</span> &gt; <span class="selector-tag">db_backup</span><span class="selector-class">.sql</span></span><br><span class="line"></span><br><span class="line">例如:</span><br><span class="line"><span class="selector-tag">mysqldump</span> <span class="selector-tag">-h172</span><span class="selector-class">.26</span><span class="selector-class">.131</span><span class="selector-class">.128</span> <span class="selector-tag">-uroot</span> <span class="selector-tag">-p</span> <span class="selector-tag">Pomlint</span> &gt; <span class="selector-tag">Pomlint_db_backup</span><span class="selector-class">.sql</span></span><br></pre></td></tr></table></figure>
 <h3 id="2-在远程master主机上再起一个mysql-docker-container"><a href="#2-在远程master主机上再起一个mysql-docker-container" class="headerlink" title="2. 在远程master主机上再起一个mysql docker container"></a>2. 在远程master主机上再起一个mysql docker container</h3><p>这里将配置文件直接挂载进容器中, 也可以启动容器后再进入容器修改配置</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="builtin-name">run</span> <span class="attribute">--restart</span>=always --name pomlint-mysql-master -p 3307:3306 -e <span class="attribute">MYSQL_ROOT_PASSWORD</span>=123456 -v /srv/mysql/master-my.cnf:/etc/mysql/my.cnf -d mysql</span><br></pre></td></tr></table></figure>
@@ -583,18 +584,6 @@
       
 
       
-      
-        <div class="post-widgets">
-        
-          <div class="wp_rating">
-            <div id="wpac-rating"></div>
-          </div>
-        
-
-        
-
-        
-        </div>
       
       
 
@@ -1416,23 +1405,6 @@
 
   
   
-  <script type="text/javascript">
-  wpac_init = window.wpac_init || [];
-  wpac_init.push({widget: 'Rating', id: ,
-    el: 'wpac-rating',
-    color: 'f79533'
-  });
-  (function() {
-    if ('WIDGETPACK_LOADED' in window) return;
-    WIDGETPACK_LOADED = true;
-    var mc = document.createElement('script');
-    mc.type = 'text/javascript';
-    mc.async = true;
-    mc.src = '//embed.widgetpack.com/widget.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
-  })();
-  </script>
-
 
   
 

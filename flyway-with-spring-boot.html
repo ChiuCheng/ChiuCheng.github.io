@@ -138,18 +138,18 @@
 
 
 
-<meta name="description" content="在pom.xml中添加依赖以及插件12345&amp;lt;dependency&amp;gt;	&amp;lt;groupId&amp;gt;org.flywaydb&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;flyway-core&amp;lt;/artifactId&amp;gt;	&amp;lt;version&amp;gt;3.0&amp;lt;/version&amp;gt;&amp;lt;/dependency&amp;gt; 123456789101">
+<meta name="description" content="本文主要介绍了如何在spring-boot中使用flyway做数据库迁移">
 <meta name="keywords" content="flyway,spring-boot">
 <meta property="og:type" content="article">
 <meta property="og:title" content="flyway with spring-boot">
 <meta property="og:url" content="https://chiucheng.github.io/flyway-with-spring-boot.html">
 <meta property="og:site_name" content="ChiuCheng&#39;s Blog">
-<meta property="og:description" content="在pom.xml中添加依赖以及插件12345&amp;lt;dependency&amp;gt;	&amp;lt;groupId&amp;gt;org.flywaydb&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;flyway-core&amp;lt;/artifactId&amp;gt;	&amp;lt;version&amp;gt;3.0&amp;lt;/version&amp;gt;&amp;lt;/dependency&amp;gt; 123456789101">
+<meta property="og:description" content="本文主要介绍了如何在spring-boot中使用flyway做数据库迁移">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-17T09:07:01.344Z">
+<meta property="og:updated_time" content="2018-01-17T09:47:12.988Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flyway with spring-boot">
-<meta name="twitter:description" content="在pom.xml中添加依赖以及插件12345&amp;lt;dependency&amp;gt;	&amp;lt;groupId&amp;gt;org.flywaydb&amp;lt;/groupId&amp;gt;	&amp;lt;artifactId&amp;gt;flyway-core&amp;lt;/artifactId&amp;gt;	&amp;lt;version&amp;gt;3.0&amp;lt;/version&amp;gt;&amp;lt;/dependency&amp;gt; 123456789101">
+<meta name="twitter:description" content="本文主要介绍了如何在spring-boot中使用flyway做数据库迁移">
 
 
 
@@ -401,7 +401,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-01-17T17:07:01+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-01-17T17:47:12+08:00">
                 2018-01-17
               </time>
             
@@ -491,7 +491,8 @@
       
 
       
-        <h3 id="在pom-xml中添加依赖以及插件"><a href="#在pom-xml中添加依赖以及插件" class="headerlink" title="在pom.xml中添加依赖以及插件"></a>在pom.xml中添加依赖以及插件</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.flywaydb<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>flyway-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+        <p></p><p class="description">本文主要介绍了如何在spring-boot中使用flyway做数据库迁移</p><br><a id="more"></a><p></p>
+<h3 id="在pom-xml中添加依赖以及插件"><a href="#在pom-xml中添加依赖以及插件" class="headerlink" title="在pom.xml中添加依赖以及插件"></a>在pom.xml中添加依赖以及插件</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.flywaydb<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>flyway-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">id</span>&gt;</span>Dev<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- Fly way --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.flywaydb<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>flyway-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">&lt;!-- mysql jdbc driver --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.flywaydb<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>flyway-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">user</span>&gt;</span>root<span class="tag">&lt;/<span class="name">user</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">password</span>&gt;</span>123456<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">driver</span>&gt;</span>com.mysql.jdbc.Driver<span class="tag">&lt;/<span class="name">driver</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">url</span>&gt;</span>jdbc:mysql://172.26.138.18:3307/Pomlint?useSSL=false<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn -PDev flyway:init -Dflyway.initVersion=1 -Dflyway.initDescription=&quot;Base Version&quot;</span><br></pre></td></tr></table></figure>
 <h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>flyway用 <code>SCHEMA_VERSION</code>表来记录每一次的migration, 如果现在已经有一个数据库了, 则需要先清空整个数据库, 再初始化</p>
@@ -528,18 +529,6 @@
       
 
       
-      
-        <div class="post-widgets">
-        
-          <div class="wp_rating">
-            <div id="wpac-rating"></div>
-          </div>
-        
-
-        
-
-        
-        </div>
       
       
 
@@ -1357,23 +1346,6 @@
 
   
   
-  <script type="text/javascript">
-  wpac_init = window.wpac_init || [];
-  wpac_init.push({widget: 'Rating', id: ,
-    el: 'wpac-rating',
-    color: 'f79533'
-  });
-  (function() {
-    if ('WIDGETPACK_LOADED' in window) return;
-    WIDGETPACK_LOADED = true;
-    var mc = document.createElement('script');
-    mc.type = 'text/javascript';
-    mc.async = true;
-    mc.src = '//embed.widgetpack.com/widget.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
-  })();
-  </script>
-
 
   
 
