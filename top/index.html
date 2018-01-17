@@ -125,7 +125,7 @@
 
 
 
-  <meta name="keywords" content="reuixiy,哲学,Hexo,博客,Coldplay" />
+  <meta name="keywords" content="top,文章阅读量排行榜" />
 
 
 
@@ -138,16 +138,18 @@
 
 
 
-<meta name="description" content="just coding !">
+<meta name="description" content="AV.initialize(&quot;tmAQCJBwzhN6FDdpAtx2ASOF-gzGzoHsz&quot;, &quot;dg9xcnOWa3nqWu6xLKRU1bqL&quot;);    var time=0   var title=&quot;&quot;   var url=&quot;&quot;   var query = new AV.Query(&apos;Counter&apos;);   query.notEqualTo(&apos;id&apos;,0);   query.d">
+<meta name="keywords" content="top,文章阅读量排行榜">
 <meta property="og:type" content="website">
-<meta property="og:title" content="ChiuCheng&#39;s Blog">
-<meta property="og:url" content="https://chiucheng.github.io/categories/随笔/index.html">
+<meta property="og:title" content="热门文章">
+<meta property="og:url" content="https://chiucheng.github.io/top/index.html">
 <meta property="og:site_name" content="ChiuCheng&#39;s Blog">
-<meta property="og:description" content="just coding !">
+<meta property="og:description" content="AV.initialize(&quot;tmAQCJBwzhN6FDdpAtx2ASOF-gzGzoHsz&quot;, &quot;dg9xcnOWa3nqWu6xLKRU1bqL&quot;);    var time=0   var title=&quot;&quot;   var url=&quot;&quot;   var query = new AV.Query(&apos;Counter&apos;);   query.notEqualTo(&apos;id&apos;,0);   query.d">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-17T05:03:17.456Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ChiuCheng&#39;s Blog">
-<meta name="twitter:description" content="just coding !">
+<meta name="twitter:title" content="热门文章">
+<meta name="twitter:description" content="AV.initialize(&quot;tmAQCJBwzhN6FDdpAtx2ASOF-gzGzoHsz&quot;, &quot;dg9xcnOWa3nqWu6xLKRU1bqL&quot;);    var time=0   var title=&quot;&quot;   var url=&quot;&quot;   var query = new AV.Query(&apos;Counter&apos;);   query.notEqualTo(&apos;id&apos;,0);   query.d">
 
 
 
@@ -177,13 +179,13 @@
 
 
 
-  <link rel="canonical" href="https://chiucheng.github.io/categories/随笔/"/>
+  <link rel="canonical" href="https://chiucheng.github.io/top/"/>
 
 
 
 
 
-  <title>分类: 随笔 | ChiuCheng's Blog</title>
+  <title>热门文章 | ChiuCheng's Blog</title>
   
 
 
@@ -202,7 +204,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -350,55 +352,60 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
+    
+    
+    <div class="post-block page">
+      <header class="post-header">
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>随笔<small>分类</small>
-        </h1>
-      </div>
+	<h1 class="post-title" itemprop="name headline">热门文章</h1>
+
+
+
+</header>
 
       
+      
+      
+      <div class="post-body">
         
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
         
-            <a class="post-title-link" href="/随笔/2018/01/09/true-love.html" itemprop="url">
-              
-                <span itemprop="name">I love Wu Xiaying !</span>
-              
-            </a>
-        
-      </h2>
+          <p><div id="top"></div></p>
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script>AV.initialize("tmAQCJBwzhN6FDdpAtx2ASOF-gzGzoHsz", "dg9xcnOWa3nqWu6xLKRU1bqL");</script>
+<script type="text/javascript">
+  var time=0
+  var title=""
+  var url=""
+  var query = new AV.Query('Counter');
+  query.notEqualTo('id',0);
+  query.descending('time');
+  query.limit(1000);
+  query.find().then(function (todo) {
+    for (var i=0;i<1000;i++){
+      var result=todo[i].attributes;
+      time=result.time;
+      title=result.title;
+      url=result.url;
+      var content="<a href='"+"https://chiucheng.github.io/"+url+"'>"+title+"</a>"+"<br />"+"<font color='#555'>"+"阅读次数："+time+"</font>"+"<br /><br />";
+      document.getElementById("top").innerHTML+=content
+    }
+  }, function (error) {
+    console.log("error");
+  });
+</script>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-01-09T17:30:16+08:00"
-              content="2018-01-09" >
-          01-09
-        </time>
+        
       </div>
-
-    </header>
-  </article>
-
-
+      
+      
       
     </div>
-
+    
+    
+    
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
@@ -686,6 +693,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 
