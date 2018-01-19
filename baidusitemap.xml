@@ -4,31 +4,8 @@
 
     
   <url>
-    <loc>https://chiucheng.github.io/mysql-master-slave-with-docker.html</loc>
-    <lastmod>2018-01-17T10:51:54.713Z</lastmod>
-    <data>
-        <display>
-        <title>set mysql master-slave replication with docker</title>
-        <pubTime>2018-01-15T03:25:33.000Z</pubTime>
-        
-        <tag>mysql</tag>
-         
-         
-           
-             
-              <breadCrumb title="database" url="https://chiucheng.github.io/categories/database/"/>
-          
-             
-              <breadCrumb title="mysql" url="https://chiucheng.github.io/categories/database/mysql/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://chiucheng.github.io/flyway-with-spring-boot.html</loc>
-    <lastmod>2018-01-17T09:47:12.988Z</lastmod>
+    <lastmod>2018-01-19T05:03:57.430Z</lastmod>
     <data>
         <display>
         <title>flyway with spring-boot</title>
@@ -45,6 +22,29 @@
           
              
               <breadCrumb title="spring-boot" url="https://chiucheng.github.io/categories/java/spring-boot/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://chiucheng.github.io/mysql-master-slave-with-docker.html</loc>
+    <lastmod>2018-01-17T10:51:54.713Z</lastmod>
+    <data>
+        <display>
+        <title>set mysql master-slave replication with docker</title>
+        <pubTime>2018-01-15T03:25:33.000Z</pubTime>
+        
+        <tag>mysql</tag>
+         
+         
+           
+             
+              <breadCrumb title="database" url="https://chiucheng.github.io/categories/database/"/>
+          
+             
+              <breadCrumb title="mysql" url="https://chiucheng.github.io/categories/database/mysql/"/>
           
         </display>
     </data>
