@@ -4,6 +4,29 @@
 
     
   <url>
+    <loc>https://chiucheng.github.io/code-roll-back-by-git.html</loc>
+    <lastmod>2018-01-22T04:11:50.281Z</lastmod>
+    <data>
+        <display>
+        <title>代码回滚</title>
+        <pubTime>2018-01-22T04:05:26.000Z</pubTime>
+        
+        <tag>git</tag>
+         
+         
+           
+             
+              <breadCrumb title="git" url="https://chiucheng.github.io/categories/git/"/>
+          
+             
+              <breadCrumb title="code roll back" url="https://chiucheng.github.io/categories/git/code-roll-back/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://chiucheng.github.io/flyway-with-spring-boot.html</loc>
     <lastmod>2018-01-19T05:03:57.430Z</lastmod>
     <data>
