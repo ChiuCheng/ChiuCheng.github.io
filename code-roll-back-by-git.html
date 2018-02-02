@@ -146,7 +146,7 @@
 <meta property="og:site_name" content="ChiuCheng&#39;s Blog">
 <meta property="og:description" content="本文主要介绍了git中如何对代码进行回滚和撤销">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-02T02:36:30.026Z">
+<meta property="og:updated_time" content="2018-02-02T02:39:03.384Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="代码回滚">
 <meta name="twitter:description" content="本文主要介绍了git中如何对代码进行回滚和撤销">
@@ -401,7 +401,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-02-02T10:36:30+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-02-02T10:39:03+08:00">
                 2018-02-02
               </time>
             
@@ -495,7 +495,7 @@
 <h2 id="工作区的恢复"><a href="#工作区的恢复" class="headerlink" title="工作区的恢复"></a>工作区的恢复</h2><p>如果工作区的文件改坏了, 可以从暂存区或者commit对象回滚整个工作区, 或者回滚工作区中的单个文件</p>
 <h3 id="从暂存区恢复"><a href="#从暂存区恢复" class="headerlink" title="从暂存区恢复"></a>从暂存区恢复</h3><p><code>checkout</code>不指定commit对象的时候, 以暂存区(Index)为文件源恢复<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout -- &lt;file name&gt;  <span class="comment">#指定文件</span></span><br><span class="line">git checkout .  <span class="comment">#所有文件</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="从commit对象恢复"><a href="#从commit对象恢复" class="headerlink" title="从commit对象恢复"></a>从commit对象恢复</h3><p><code>checkout</code>指定commit对象或者branch的时候, 以commit对象为文件源进行恢复</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout HEAD/branch -- &lt;file name&gt; #同时回滚暂存区,指文件名</span><br><span class="line">git checkout HEAD/branch . # 同时覆盖暂存区,所有文件</span><br><span class="line">git reset --hard # source is HEAD, 同时覆盖暂存区</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout HEAD/branch -- &lt;file name&gt; #同时回滚暂存区,指定文件名</span><br><span class="line">git checkout HEAD/branch . # 同时覆盖暂存区,所有文件</span><br><span class="line">git reset --hard # source is HEAD, 同时覆盖暂存区</span><br></pre></td></tr></table></figure>
 <p>ps: 注意:</p>
 <ol>
 <li>使用<code>checkout</code>命令恢复文件的时候不要忘记使用<code>-- &lt;file name&gt;</code> 指定要恢复的文件, 或者使用”<code>.</code>“号指定恢复所有文件, 如果没有指定, 那命令等同于分支切换</li>
@@ -523,7 +523,7 @@
 </ol>
 <p>透过现象看本质:</p>
 <ol>
-<li>(在不指定 – <file name="">时) <code>git reset</code> 这个命令的本质是移动<code>HEAD</code>和<code>branch-name</code>这两个指针, 使他们指向新的commit对象, 如果这个命令没有指定commit对象, 则使用的就是当前的commit对象(因为<code>head</code>和<code>branch-name</code>都指向当前commit对象, 所以没有实际上就是没有发生移动)</file></li>
+<li>(在不指定<code>-- &lt;file name&gt;</code>时) <code>git reset</code> 这个命令的本质是移动<code>HEAD</code>和<code>branch-name</code>这两个指针, 使他们指向新的commit对象, 如果这个命令没有指定commit对象, 则使用的就是当前的commit对象(因为<code>head</code>和<code>branch-name</code>都指向当前commit对象, 所以没有实际上就是没有发生移动)</li>
 <li><code>git reset</code> 同时对于暂存区有一定的影响, 具体如下:<ul>
 <li><code>--mixed</code> (default)<ul>
 <li>在1的基础上恢复暂存区</li>
