@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://chiucheng.github.io/async-usage-in-java.html</loc>
+    
+    <lastmod>2018-03-30T08:11:02.642Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://chiucheng.github.io/sso-with-spring-security-and-jwt.html</loc>
     
     <lastmod>2018-03-30T07:42:04.970Z</lastmod>
