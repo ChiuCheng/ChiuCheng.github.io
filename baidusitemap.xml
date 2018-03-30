@@ -4,6 +4,33 @@
 
     
   <url>
+    <loc>https://chiucheng.github.io/sso-with-spring-security-and-jwt.html</loc>
+    <lastmod>2018-03-30T07:42:04.970Z</lastmod>
+    <data>
+        <display>
+        <title>用spring-security和jwt实现SSO和权限管理</title>
+        <pubTime>2018-03-30T07:24:40.000Z</pubTime>
+        
+        <tag>spring-security</tag>
+         
+        <tag>sso</tag>
+         
+        <tag>jwt</tag>
+         
+         
+           
+             
+              <breadCrumb title="spring" url="https://chiucheng.github.io/categories/spring/"/>
+          
+             
+              <breadCrumb title="spring-security" url="https://chiucheng.github.io/categories/spring/spring-security/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://chiucheng.github.io/flyway-with-spring-boot.html</loc>
     <lastmod>2018-02-08T03:08:44.622Z</lastmod>
     <data>

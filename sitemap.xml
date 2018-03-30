@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://chiucheng.github.io/sso-with-spring-security-and-jwt.html</loc>
+    
+    <lastmod>2018-03-30T07:42:04.970Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://chiucheng.github.io/flyway-with-spring-boot.html</loc>
     
     <lastmod>2018-02-08T03:08:44.622Z</lastmod>

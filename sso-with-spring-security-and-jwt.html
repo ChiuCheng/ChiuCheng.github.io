@@ -127,7 +127,7 @@
 
 
 
-  <meta name="keywords" content="chiucheng,coding,Hexo,博客" />
+  <meta name="keywords" content="spring-security,sso,jwt," />
 
 
 
@@ -138,16 +138,18 @@
 
 
 
-<meta name="description" content="just coding !">
-<meta property="og:type" content="website">
-<meta property="og:title" content="ChiuCheng&#39;s Blog">
-<meta property="og:url" content="https://chiucheng.github.io/index.html">
+<meta name="description" content="本文介绍了如何使用spring-security和jwt实现单点登录以及权限管理">
+<meta name="keywords" content="spring-security,sso,jwt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用spring-security和jwt实现SSO和权限管理">
+<meta property="og:url" content="https://chiucheng.github.io/sso-with-spring-security-and-jwt.html">
 <meta property="og:site_name" content="ChiuCheng&#39;s Blog">
-<meta property="og:description" content="just coding !">
+<meta property="og:description" content="本文介绍了如何使用spring-security和jwt实现单点登录以及权限管理">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-30T07:42:04.970Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ChiuCheng&#39;s Blog">
-<meta name="twitter:description" content="just coding !">
+<meta name="twitter:title" content="用spring-security和jwt实现SSO和权限管理">
+<meta name="twitter:description" content="本文介绍了如何使用spring-security和jwt实现单点登录以及权限管理">
 
 
 
@@ -177,13 +179,13 @@
 
 
 
-  <link rel="canonical" href="https://chiucheng.github.io/"/>
+  <link rel="canonical" href="https://chiucheng.github.io/sso-with-spring-security-and-jwt.html"/>
 
 
 
 
 
-  <title>chiucheng,coding,Hexo,博客 - ChiuCheng's Blogjust coding !</title>
+  <title>用spring-security和jwt实现SSO和权限管理 | ChiuCheng's Blog</title>
   
 
 
@@ -202,8 +204,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -340,9 +341,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -372,9 +373,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/sso-with-spring-security-and-jwt.html" itemprop="url">用spring-security和jwt实现SSO和权限管理</a></h1>
+          <h1 class="post-title" itemprop="name headline">用spring-security和jwt实现SSO和权限管理</h1>
         
 
         <div class="post-meta">
@@ -492,16 +491,55 @@
       
 
       
-        
-          <p></p><p class="description">本文介绍了如何使用spring-security和jwt实现单点登录以及权限管理</p><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/sso-with-spring-security-and-jwt.html" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <p></p><p class="description">本文介绍了如何使用spring-security和jwt实现单点登录以及权限管理</p><br><a id="more"></a><p></p>
+<h2 id="what-is-jwt"><a href="#what-is-jwt" class="headerlink" title="what is jwt"></a>what is jwt</h2><p>introducion:</p>
+<ul>
+<li><a href="https://jwt.io/introduction/" target="_blank" rel="noopener">https://jwt.io/introduction/</a></li>
+<li><a href="http://blog.leapoahead.com/2015/09/06/understanding-jwt/" target="_blank" rel="noopener">http://blog.leapoahead.com/2015/09/06/understanding-jwt/</a></li>
+<li><a href="http://blog.leapoahead.com/2015/09/07/user-authentication-with-jwt/" target="_blank" rel="noopener">http://blog.leapoahead.com/2015/09/07/user-authentication-with-jwt/</a></li>
+</ul>
+<p>tips:</p>
+<ul>
+<li>不要在jwt中传递敏感信息: <ul>
+<li>Do not put secret information in the payload or header elements of a JWT unless it is encrypted.</li>
+<li>Do note that with signed tokens, all the information contained within the token is exposed to users or other parties, even though they are unable to change it. This means you shou    ld not put secret information within the token.</li>
+</ul>
+</li>
+<li>jwt的签名部分主要用于验证信息是否改动以及验证信息的来源:<ul>
+<li>The signature is used to verify the message wasn’t changed along the way, and, in the case of tokens signed with a private key, it can also verify that the sender of the JWT is who it says it is.</li>
+</ul>
+</li>
+<li>jwt 应用与单点登录(SSO)系统时, 其主要的用途是在payload里面传递用户信息(username, role等)</li>
+</ul>
+<h2 id="spring-security"><a href="#spring-security" class="headerlink" title="spring security"></a>spring security</h2><p>用法:</p>
+<figure class="highlight java"><figcaption><span>WebSecurityConfig.class</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="meta">@EnableGlobalMethodSecurity</span>(prePostEnabled = <span class="keyword">true</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSecurityConfig</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JwtAuthenticationEntryPoint unauthorizedHandler;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> JwtAuthenticationTokenFilter <span class="title">authenticationTokenFilterBean</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> JwtAuthenticationTokenFilter();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity httpSecurity)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        httpSecurity</span><br><span class="line">                .csrf().disable()</span><br><span class="line">                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()</span><br><span class="line">                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()</span><br><span class="line">                .authorizeRequests()</span><br><span class="line">                .antMatchers(</span><br><span class="line">                        HttpMethod.GET,</span><br><span class="line">                        <span class="string">"/"</span>,</span><br><span class="line">                        <span class="string">"/*.html"</span>,</span><br><span class="line">                        <span class="string">"/favicon.ico"</span>,</span><br><span class="line">                        <span class="string">"/**/*.html"</span>,</span><br><span class="line">                        <span class="string">"/**/*.css"</span>,</span><br><span class="line">                        <span class="string">"/**/*.js"</span>,</span><br><span class="line">                        <span class="string">"/api/*"</span></span><br><span class="line">                ).permitAll()</span><br><span class="line">                .anyRequest().authenticated();</span><br><span class="line"></span><br><span class="line">        httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>spring-security 可以设置多个filter对http请求进行过滤, 后端收到所有的http请求, 首先通过filter进行过滤处理, 这里设置了一个过滤器 authenticationTokenFilterBean:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JwtAuthenticationTokenFilter</span> <span class="keyword">extends</span> <span class="title">OncePerRequestFilter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JwtTokenUtil jwtTokenUtil;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;jwt.cookie&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String tokenHead;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doFilterInternal</span><span class="params">(HttpServletRequest request,</span></span></span><br><span class="line"><span class="function"><span class="params">                                    HttpServletResponse response,</span></span></span><br><span class="line"><span class="function"><span class="params">                                    FilterChain chain)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        Cookie[] cookies = request.getCookies();</span><br><span class="line">        <span class="keyword">final</span> String jwtToken = getJwtTokenInCookie(cookies);</span><br><span class="line">        <span class="keyword">if</span>(!jwtToken.equals(<span class="string">""</span>)) &#123;</span><br><span class="line"></span><br><span class="line">            UserDetails jwtUser = jwtTokenUtil.getJwtUserFromToken(jwtToken);</span><br><span class="line">            String userName = jwtUser.getUsername();</span><br><span class="line"></span><br><span class="line">            log.info(<span class="string">"checking authentication of &#123;&#125;"</span>, userName);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (userName != <span class="keyword">null</span> &amp;&amp; SecurityContextHolder.getContext().getAuthentication() == <span class="keyword">null</span>) &#123;</span><br><span class="line">                UsernamePasswordAuthenticationToken authentication = <span class="keyword">new</span> UsernamePasswordAuthenticationToken(jwtUser, <span class="keyword">null</span>, jwtUser.getAuthorities());</span><br><span class="line">                authentication.setDetails(<span class="keyword">new</span> WebAuthenticationDetailsSource().buildDetails(request));</span><br><span class="line"></span><br><span class="line">                log.info(<span class="string">"authenticated user &#123;&#125;, setting security context"</span>, userName);</span><br><span class="line">                SecurityContextHolder.getContext().setAuthentication(authentication);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        chain.doFilter(request,response);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getJwtTokenInCookie</span><span class="params">(Cookie[] cookies)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cookies != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (Cookie cookie : cookies) &#123;</span><br><span class="line">                <span class="keyword">if</span> (cookie.getName().equals(<span class="string">"genius"</span>)) &#123;</span><br><span class="line">                    <span class="keyword">return</span> cookie.getValue();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个过滤器中,首先从cookie中读取jwt, 然后从中解析出用户信息, 在将用户信息set进 Security上下文中,注意, 这里必须定义一个用户类,该类实现UserDetails接口,可以专门定义一个Util类来完成从jwt中提取用户信息,再组装成用户类的工作</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JwtTokenUtil</span> <span class="keyword"><span class="keyword">implements</span> <span class="type">Serializable</span></span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> final <span class="keyword">String</span> CLAIM_KEY_USERNAME = <span class="string">"user_name"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> final <span class="keyword">String</span> CLAIM_KEY_EMAIL = <span class="string">"email"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> final <span class="keyword">String</span> CLAIM_KEY_ROLE = <span class="string">"role"</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Value(<span class="string">"$&#123;jwt.public-key&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">String</span> publicKeyPem;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> JwtUser getJwtUserFromToken(<span class="keyword">String</span> token) &#123;</span><br><span class="line">        <span class="keyword">String</span> username = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">String</span> email = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">String</span> role = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            final JwtClaims claims = getClaimsFromToken(token);</span><br><span class="line">            username = claims.getStringClaimValue(CLAIM_KEY_USERNAME);</span><br><span class="line">            email = claims.getStringClaimValue(CLAIM_KEY_EMAIL);</span><br><span class="line">            role = claims.getStringClaimValue(CLAIM_KEY_ROLE);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (MalformedClaimException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        List&lt;GrantedAuthority&gt; authorities = Arrays.asList(<span class="keyword">new</span> <span class="type">SimpleGrantedAuthority</span>(role));</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="type">JwtUser</span>(username, email, authorities);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> JwtClaims getClaimsFromToken(<span class="keyword">String</span> token) &#123;</span><br><span class="line"></span><br><span class="line">        JwtClaims claims = <span class="literal">null</span>;</span><br><span class="line">        RsaKeyUtil rsaKeyUtil = <span class="keyword">new</span> <span class="type">RsaKeyUtil</span>();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line"></span><br><span class="line">            PublicKey publicKey = rsaKeyUtil.fromPemEncoded(publicKeyPem);</span><br><span class="line"></span><br><span class="line">            JwtConsumer jwtConsumer = <span class="keyword">new</span> <span class="type">JwtConsumerBuilder</span>()</span><br><span class="line">                    .setVerificationKey(publicKey)</span><br><span class="line">                    .build();</span><br><span class="line">            claims = jwtConsumer.processToClaims(token);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InvalidKeySpecException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (JoseException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InvalidJwtException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> claims;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后定义一个类来处理授权异常:<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Component</span></span><br><span class="line"><span class="variable">@Slf4j</span></span><br><span class="line">public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Serializable &#123;</span><br><span class="line">    <span class="variable">@Override</span></span><br><span class="line">    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException &#123;</span><br><span class="line">        <span class="selector-tag">log</span><span class="selector-class">.info</span>(<span class="string">"JwtAuthenticationEntryPoint"</span>);</span><br><span class="line">        <span class="selector-tag">response</span><span class="selector-class">.sendError</span>(HttpServletResponse.SC_UNAUTHORIZED, <span class="string">"Unauthorized"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在需要权限调用的方法上指定需要的权限</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">PreAuthorize</span>("<span class="keyword">hasAuthority</span>('<span class="keyword">admin</span>')")</span><br></pre></td></tr></table></figure>
+<h2 id="SSO-with-spring-security-and-jwt"><a href="#SSO-with-spring-security-and-jwt" class="headerlink" title="SSO with spring-security and jwt"></a>SSO with spring-security and jwt</h2><p>backend:</p>
+<ul>
+<li>step1: 后端收到http请求, 首先经过filter</li>
+<li>step2: authenticationTokenFilterBean 从cookie中读取jwt,如果能过读取到, 设置当前的security context</li>
+<li>step3: 当调用方法时, spring-security自动对比当前security-context上下文以及method上的@PreAuthorize注解, 有权限则返回结果, 没有权限触发授权异常, 由之前设置的handler处理(一般返回401)</li>
+</ul>
+<p>front-end:</p>
+<ul>
+<li><p>step1: 加载页面时首先从后端拿取用户登录状态, 后端从当前的security context中拿取用户信息</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(<span class="meta-string">"/api"</span>)</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor(onConstructor = @__(&#123;@Autowired&#125;)</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(method = RequestMethod.GET, value = <span class="meta-string">"/users"</span>)</span></span><br><span class="line">    <span class="keyword">public</span> String getUser() &#123;</span><br><span class="line">        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();</span><br><span class="line">        String userName = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">if</span>(authentication != <span class="literal">null</span> &amp;&amp; authentication.getPrincipal() instanceof UserDetails) &#123;</span><br><span class="line">            userName = ((UserDetails) authentication.getPrincipal()).getUsername();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> userName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>step2: 前端在执行某个需要一定用户权限的操作时, 首先检查用户有没有登录:</p>
+<ul>
+<li>若用户已登录: 直接向后端发请求, 后端会做权限认证</li>
+<li>若用户没有登录: 将用户重定向至SSO的登录系统(同时附上app_id以及返回页面的url), 用户在登录系统登录后, 该系统将包含用户信息的jwt设在cookie中,并按指定返回页面url重定向回来, 回来后, 用户将是已登录的状态.<hr>
+</li>
+</ul>
+</li>
+</ul>
+
       
     </div>
     
@@ -516,398 +554,40 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chiucheng.github.io/code-roll-back-by-git.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zheng Chao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ChiuCheng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/code-roll-back-by-git.html" itemprop="url">代码回滚</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-22T12:05:26+08:00">
-                2018-01-22
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-02-02T10:39:03+08:00">
-                2018-02-02
-              </time>
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index">
-                    <span itemprop="name">git</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/code-roll-back/" itemprop="url" rel="index">
-                    <span itemprop="name">code roll back</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/spring-security/" rel="tag"># spring-security</a>
           
-
+            <a href="/tags/sso/" rel="tag"># sso</a>
           
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/code-roll-back-by-git.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="code-roll-back-by-git.html" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
+            <a href="/tags/jwt/" rel="tag"># jwt</a>
           
-
-          
-          
-             <span id="/code-roll-back-by-git.html" class="leancloud_visitors" data-flag-title="代码回滚">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <p></p><p class="description">本文主要介绍了git中如何对代码进行回滚和撤销</p><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/code-roll-back-by-git.html" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/code-roll-back-by-git.html" rel="next" title="代码回滚">
+                <i class="fa fa-chevron-left"></i> 代码回滚
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chiucheng.github.io/flyway-with-spring-boot.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zheng Chao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ChiuCheng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/flyway-with-spring-boot.html" itemprop="url">flyway with spring-boot</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-17T16:48:48+08:00">
-                2018-01-17
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-02-08T11:08:44+08:00">
-                2018-02-08
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/spring-boot/" itemprop="url" rel="index">
-                    <span itemprop="name">spring-boot</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/flyway-with-spring-boot.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="flyway-with-spring-boot.html" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/flyway-with-spring-boot.html" class="leancloud_visitors" data-flag-title="flyway with spring-boot">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p></p><p class="description">本文主要介绍了如何在spring-boot中使用flyway做数据库迁移</p><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/flyway-with-spring-boot.html" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -917,379 +597,11 @@
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chiucheng.github.io/mysql-master-slave-with-docker.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zheng Chao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ChiuCheng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/mysql-master-slave-with-docker.html" itemprop="url">set mysql master-slave replication with docker</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-15T11:25:33+08:00">
-                2018-01-15
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-01-17T18:51:54+08:00">
-                2018-01-17
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/database/" itemprop="url" rel="index">
-                    <span itemprop="name">database</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/database/mysql/" itemprop="url" rel="index">
-                    <span itemprop="name">mysql</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/mysql-master-slave-with-docker.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="mysql-master-slave-with-docker.html" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/mysql-master-slave-with-docker.html" class="leancloud_visitors" data-flag-title="set mysql master-slave replication with docker">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p></p><p class="description">本文主要介绍了如何设置mysql数据库的主从复制, 其中mysql服务使用docker container</p><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/mysql-master-slave-with-docker.html" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chiucheng.github.io/true-love.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zheng Chao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ChiuCheng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/true-love.html" itemprop="url">I love Wu Xiaying !</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-09T17:30:16+08:00">
-                2018-01-09
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-01-17T17:10:57+08:00">
-                2018-01-17
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/随笔/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/true-love.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="true-love.html" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/true-love.html" class="leancloud_visitors" data-flag-title="I love Wu Xiaying !">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="To-Wu-Xiaying"><a href="#To-Wu-Xiaying" class="headerlink" title="To Wu Xiaying:"></a>To Wu Xiaying:</h3><p>You are my today and all of my tomorrows.<br>And it’s as if I never really even knew love until right now, in this moment, with you.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
@@ -1297,6 +609,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="hypercomments_widget"></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -1319,8 +640,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1384,6 +714,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-jwt"><span class="nav-number">1.</span> <span class="nav-text">what is jwt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-security"><span class="nav-number">2.</span> <span class="nav-text">spring security</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSO-with-spring-security-and-jwt"><span class="nav-number">3.</span> <span class="nav-text">SSO with spring-security and jwt</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1540,6 +886,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 
@@ -1563,6 +913,8 @@
 
 		_hcwp.push({widget:"Bloggerstream", widget_id: 100074, selector:".hc-comment-count", label: "{\%COUNT%\}" });
 
+		
+		_hcwp.push({widget:"Stream", widget_id: 100074, xid: "sso-with-spring-security-and-jwt.html"});
 		
 
 		(function() {
